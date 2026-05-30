@@ -41,6 +41,7 @@
 
         // HABITACIÓN AISLADA PARA QUILMES
         const PRODE_APP_ID = typeof __app_id !== 'undefined' ? __app_id : 'prode-quilmes-2026';
+        const MASTER_RESULTS_ID = 'prode-master-2026';
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
@@ -227,7 +228,7 @@
                     error => console.error("Error recuperando predicciones:", error)
                 );
 
-                const globalRef = db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('state').doc('global');
+                const globalRef = db.collection('artifacts').doc(MASTER_RESULTS_ID).collection('public').doc('data').collection('state').doc('global');
                 const unsubGlobal = globalRef.onSnapshot(
                     doc => {
                         if (doc.exists && doc.data().matches) {
@@ -302,7 +303,7 @@
 
             const saveOfficialResults = () => {
                 if (user && isAdmin) {
-                    db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('state').doc('global').set({ matches: matches }, { merge: true }).then(() => {
+                    db.collection('artifacts').doc(MASTER_RESULTS_ID).collection('public').doc('data').collection('state').doc('global').set({ matches: matches }, { merge: true }).then(() => {
                         showToast('👑 ¡Resultados guardados! La tabla de esta empresa se ha actualizado.');
                     }).catch(err => console.error(err));
                 }
