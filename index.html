@@ -3,28 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- 1. CAMBIO DE TÍTULO -->
     <title>GruProde 2026 - AM Quilmes</title>
     
-    <!-- Etiquetas PWA para instalación en el celu -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- 2. CAMBIO DE NOMBRE DE APP INSTALADA -->
     <meta name="apple-mobile-web-app-title" content="Prode Quilmes">
     <link rel="manifest" href='data:application/manifest+json,{"name":"GruProde Quilmes 2026","short_name":"Prode Quilmes","display":"standalone","background_color":"#74ACDF","theme_color":"#74ACDF"}'>
     
-    <!-- Tailwind CSS para los estilos -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel para traducir JSX en vivo -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
@@ -48,10 +39,9 @@
                 appId: "1:642143421766:web:28672abc1fe76d94759147"
             };
 
-        // 👇 3. ID EXCLUSIVO PARA AM QUILMES (Pronósticos y Ranking) 👇
+        // HABITACIÓN AISLADA PARA QUILMES
         const PRODE_APP_ID = typeof __app_id !== 'undefined' ? __app_id : 'prode-quilmes-2026';
 
-        // Inicializamos Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -70,7 +60,7 @@
 
         const { useState, useEffect, useRef, useMemo } = React;
 
-        // --- DEFINICIÓN DE LOS EQUIPOS ---
+        // --- EQUIPOS CON SUS CÓDIGOS DE BANDERA (ISO 3166-1) ---
         const TOURNAMENT_GROUPS = {
             'A': [{ name: 'México', code: 'mx' }, { name: 'Sudáfrica', code: 'za' }, { name: 'Corea del Sur', code: 'kr' }, { name: 'Rep. Checa', code: 'cz' }],
             'B': [{ name: 'Canadá', code: 'ca' }, { name: 'Bosnia y Herz.', code: 'ba' }, { name: 'Qatar', code: 'qa' }, { name: 'Suiza', code: 'ch' }],
@@ -102,7 +92,6 @@
             date, status: 'pending', realHomeScore: null, realAwayScore: null
         });
 
-        // --- LOS 104 PARTIDOS OFICIALES ---
         const initialMatches = [
             m(1, 'grupos', 'México', 'Sudáfrica', '11 Jun 2026 - 16:00'), m(2, 'grupos', 'Corea del Sur', 'Rep. Checa', '11 Jun 2026 - 23:00'),
             m(3, 'grupos', 'Canadá', 'Bosnia y Herz.', '12 Jun 2026 - 16:00'), m(4, 'grupos', 'EE.UU.', 'Paraguay', '12 Jun 2026 - 22:00'),
@@ -171,8 +160,10 @@
                 const parts = dateStr.split(' - ');
                 datePart = parts[0]; timePart = parts[1];
             }
+            // Controla UTC-3 ESTRICTO
             const matchTime = new Date(`${datePart} ${timePart}:00 GMT-0300`);
             const now = new Date();
+            // Bloquea exactamente 1.800.000 ms (30 minutos) antes
             return now.getTime() > (matchTime.getTime() - 1800000);
         };
 
@@ -226,7 +217,6 @@
             useEffect(() => {
                 if (!user) return;
 
-                // PRONÓSTICOS: Se leen de la sala aislada de AM Quilmes
                 const predsRef = db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('predictions');
                 const unsubPreds = predsRef.onSnapshot(
                     snap => {
@@ -237,7 +227,6 @@
                     error => console.error("Error recuperando predicciones:", error)
                 );
 
-                // RESULTADOS GLOBALES: Se leen de la sala de la empresa para evitar errores de permisos
                 const globalRef = db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('state').doc('global');
                 const unsubGlobal = globalRef.onSnapshot(
                     doc => {
@@ -311,10 +300,8 @@
                 }
             };
 
-            // 👇 5. GUARDADO MAESTRO DE RESULTADOS 👇
             const saveOfficialResults = () => {
                 if (user && isAdmin) {
-                    // El Admin guarda en la base de datos de esta empresa
                     db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('state').doc('global').set({ matches: matches }, { merge: true }).then(() => {
                         showToast('👑 ¡Resultados guardados! La tabla de esta empresa se ha actualizado.');
                     }).catch(err => console.error(err));
@@ -397,11 +384,9 @@
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-sky-300 via-white to-sky-300"></div>
                             
                             <div className="bg-white p-2 rounded-2xl inline-block mb-4 shadow-md border border-sky-100">
-                                {/* 👇 6. LOGO DE QUILMES EN INICIO 👇 */}
                                 <img src="image_bb3a4f.png" alt="Logo Empresa" className="w-20 h-20 object-contain" onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/80?text=Logo' }} />
                             </div>
                             
-                            {/* 👇 7. TEXTOS DE QUILMES 👇 */}
                             <h1 className="text-3xl font-extrabold text-sky-900 mb-2">AM Quilmes</h1>
                             <p className="text-sky-600 font-medium mb-6">Prode Mundial 2026 🇦🇷</p>
                             
@@ -445,7 +430,6 @@
                     <header className="bg-[#74ACDF] shadow-md sticky top-0 z-20">
                         <div className="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                {/* 👇 8. LOGO DE QUILMES EN HEADER 👇 */}
                                 <img src="image_bb3a4f.png" alt="Logo" className="w-9 h-9 object-contain bg-white rounded-lg p-1 shadow-sm" onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/36?text=Logo' }} />
                                 <h1 className="text-xl font-black text-white tracking-wide drop-shadow-sm">AMQ Prode</h1>
                             </div>
@@ -582,7 +566,7 @@
                                                         <span className="font-bold text-slate-700 text-sm leading-tight">{match.home}</span>
                                                     </div>
                                                     
-                                                    <div className="flex items-center gap-2" onClick={() => { if(isLocked && !isFinished) showToast('⏳ Partido bloqueado. Cierra 30 minutos antes del inicio.') }}>
+                                                    <div className="flex items-center gap-2" onClick={() => { if(isLocked && !isFinished) showToast('⏳ Partido bloqueado. Cierra 30 min antes.') }}>
                                                         <input type="number" min="0" value={pred.home} onChange={(e) => setPredictions(p => ({...p, [match.id]: {...p[match.id], home: e.target.value}}))} disabled={disableInputs} className="w-12 h-14 bg-sky-50 border-2 border-sky-200 rounded-xl text-center text-xl font-black text-sky-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 disabled:opacity-50 disabled:bg-slate-100 disabled:cursor-not-allowed shadow-inner" />
                                                         <span className="text-sky-300 font-black">-</span>
                                                         <input type="number" min="0" value={pred.away} onChange={(e) => setPredictions(p => ({...p, [match.id]: {...p[match.id], away: e.target.value}}))} disabled={disableInputs} className="w-12 h-14 bg-sky-50 border-2 border-sky-200 rounded-xl text-center text-xl font-black text-sky-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 disabled:opacity-50 disabled:bg-slate-100 disabled:cursor-not-allowed shadow-inner" />
@@ -669,8 +653,8 @@
                         {activeTab === 'admin' && isAdmin && (
                             <div className="space-y-6">
                                 <div className="bg-white/95 p-4 rounded-xl shadow-sm border border-sky-100 backdrop-blur-sm">
-                                    <h2 className="text-2xl font-black text-red-600">Carga Maestra de Resultados</h2>
-                                    <p className="text-slate-600 font-medium text-sm">⚠️ Los resultados guardados aquí actualizarán las tablas de todas tus empresas.</p>
+                                    <h2 className="text-2xl font-black text-red-600">Panel de Control Admin</h2>
+                                    <p className="text-slate-600 font-medium text-sm">⚠️ Los resultados guardados aquí actualizarán la tabla de esta empresa en tiempo real.</p>
                                 </div>
 
                                 <div className="flex overflow-x-auto pb-2 gap-2 hide-scrollbar">
