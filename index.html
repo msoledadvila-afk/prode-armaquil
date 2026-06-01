@@ -526,12 +526,17 @@
 
                         {/* Pestaña: Pronósticos */}
                         {activeTab === 'pronosticos' && (
-                            <div className="space-y-6">
-                                {/* Cartel de Advertencia Fases Finales */}
-Aviso Importante
-⚠️ Por favor, NO cargues pronósticos para 16avos, Octavos o fases siguientes hasta que la administración confirme los cruces oficiales. Los resultados prematuros podrían borrarse al actualizar los equipos.
-                                <div className="bg-white/95 p-4 rounded-xl shadow-sm border border-sky-100 backdrop-blur-sm">
-                                    <h2 className="text-2xl font-black text-sky-900">Pronósticos</h2>
+                            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                 {/* Cartel de Advertencia Fases Finales */}
+            <div className="bg-red-950/40 border border-red-500/50 rounded-xl p-4 mb-2">
+              <div className="flex items-center gap-2 text-red-400 font-bold mb-1 uppercase text-xs tracking-wider">
+                <AlertCircle className="w-5 h-5" />
+                Aviso Importante
+              </div>
+              <p className="text-red-200/90 text-sm leading-relaxed">
+                ⚠️ <b>Por favor, NO cargues pronósticos para 16avos, Octavos o fases siguientes</b> hasta que la administración confirme los cruces oficiales. Los resultados prematuros podrían borrarse al actualizar los equipos.
+              </p>
+            </div>                                    <h2 className="text-2xl font-black text-sky-900">Pronósticos</h2>
                                     <p className="text-sky-600 font-medium text-sm">Cargá tus resultados por fase.</p>
                                 </div>
 
@@ -641,8 +646,14 @@ Aviso Importante
                         {activeTab === 'reglas' && (
                             <div className="space-y-4">
                                 {/* Regla de Oro Destacada */}
-REGLA DE ORO: FASES FINALES
-El Prode se llena por etapas. Está estrictamente prohibido completar los pronósticos de 16avos de final en adelante hasta que se anuncien los cruces oficiales. Hacerlo antes puede generar que tus resultados se anulen o se borren del sistema.
+            <div className="bg-red-900/30 border-l-4 border-red-500 p-4 mb-6 rounded-r-xl shadow-sm">
+              <h3 className="text-red-400 font-black uppercase tracking-widest text-sm mb-2 flex items-center gap-2">
+                <AlertCircle className="w-5 h-5" /> REGLA DE ORO: FASES FINALES
+              </h3>
+              <p className="text-slate-300 text-sm font-medium leading-relaxed">
+                El Prode se llena por etapas. Está estrictamente prohibido completar los pronósticos de 16avos de final en adelante hasta que se anuncien los cruces oficiales. Hacerlo antes puede generar que tus resultados se anulen o se borren del sistema.
+              </p>
+            </div>
                                 <div className="bg-white/95 p-4 rounded-xl shadow-sm border border-sky-100 backdrop-blur-sm">
                                     <h2 className="text-2xl font-black text-sky-900">Reglas del Prode</h2>
                                 </div>
