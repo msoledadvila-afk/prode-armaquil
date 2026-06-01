@@ -93,7 +93,9 @@
             date, status: 'pending', realHomeScore: null, realAwayScore: null
         });
 
+       // --- LOS 104 PARTIDOS OFICIALES (Hora Argentina UTC-3) ---
         const initialMatches = [
+            // GRUPOS
             m(1, 'grupos', 'México', 'Sudáfrica', '11 Jun 2026 - 16:00'), m(2, 'grupos', 'Corea del Sur', 'Rep. Checa', '11 Jun 2026 - 23:00'),
             m(3, 'grupos', 'Canadá', 'Bosnia y Herz.', '12 Jun 2026 - 16:00'), m(4, 'grupos', 'EE.UU.', 'Paraguay', '12 Jun 2026 - 22:00'),
             m(5, 'grupos', 'Qatar', 'Suiza', '13 Jun 2026 - 16:00'), m(6, 'grupos', 'Brasil', 'Marruecos', '13 Jun 2026 - 19:00'),
@@ -111,7 +113,7 @@
             m(29, 'grupos', 'EE.UU.', 'Australia', '19 Jun 2026 - 16:00'), m(30, 'grupos', 'Escocia', 'Marruecos', '19 Jun 2026 - 19:00'),
             m(31, 'grupos', 'Brasil', 'Haití', '19 Jun 2026 - 22:00'), m(32, 'grupos', 'Turquía', 'Paraguay', '19 Jun 2026 - 01:00'),
             m(33, 'grupos', 'Países Bajos', 'Suecia', '20 Jun 2026 - 14:00'), m(34, 'grupos', 'Alemania', 'C. de Marfil', '20 Jun 2026 - 17:00'),
-            m(35, 'grupos', 'Ecuador', 'Curazao', '20 Jun 2026 - 23:00'), m(36, 'grupos', 'Túnez', 'Japón', '20 Jun 2026 - 01:00'),
+            m(35, 'grupos', 'Ecuador', 'Curazao', '20 Jun 2026 - 21:00'), m(36, 'grupos', 'Túnez', 'Japón', '20 Jun 2026 - 01:00'),
             m(37, 'grupos', 'España', 'A. Saudita', '21 Jun 2026 - 13:00'), m(38, 'grupos', 'Bélgica', 'Irán', '21 Jun 2026 - 16:00'),
             m(39, 'grupos', 'Uruguay', 'Cabo Verde', '21 Jun 2026 - 19:00'), m(40, 'grupos', 'N. Zelanda', 'Egipto', '21 Jun 2026 - 22:00'),
             m(41, 'grupos', 'Argentina', 'Austria', '22 Jun 2026 - 14:00'), m(42, 'grupos', 'Francia', 'Irak', '22 Jun 2026 - 18:00'),
@@ -130,24 +132,33 @@
             m(67, 'grupos', 'Panamá', 'Inglaterra', '27 Jun 2026 - 18:00'), m(68, 'grupos', 'Croacia', 'Ghana', '27 Jun 2026 - 18:00'),
             m(69, 'grupos', 'Colombia', 'Portugal', '27 Jun 2026 - 20:30'), m(70, 'grupos', 'RD Congo', 'Uzbekistán', '27 Jun 2026 - 20:30'),
             m(71, 'grupos', 'Argelia', 'Austria', '27 Jun 2026 - 23:00'), m(72, 'grupos', 'Jordania', 'Argentina', '27 Jun 2026 - 23:00'),
-            m(73, '16avos', '2º Grupo A', '2º Grupo B', '28 Jun 2026'), m(74, '16avos', '1º Grupo E', '3º A/B/C/D/F', '29 Jun 2026'),
-            m(75, '16avos', '1º Grupo F', '2º Grupo C', '29 Jun 2026'), m(76, '16avos', '1º Grupo C', '2º Grupo F', '29 Jun 2026'),
-            m(77, '16avos', '1º Grupo I', '3º C/D/F/G/H', '30 Jun 2026'), m(78, '16avos', '2º Grupo E', '2º Grupo I', '30 Jun 2026'),
-            m(79, '16avos', '1º Grupo A', '3º C/E/F/H/I', '30 Jun 2026'), m(80, '16avos', '1º Grupo L', '3º E/H/I/J/K', '1 Jul 2026'),
-            m(81, '16avos', '1º Grupo D', '3º B/E/F/I/J', '1 Jul 2026'), m(82, '16avos', '1º Grupo G', '3º A/E/H/I/J', '1 Jul 2026'),
-            m(83, '16avos', '2º Grupo K', '2º Grupo L', '2 Jul 2026'), m(84, '16avos', '1º Grupo H', '2º Grupo J', '2 Jul 2026'),
-            m(85, '16avos', '1º Grupo B', '3º E/F/G/I/J', '2 Jul 2026'), m(86, '16avos', '1º Grupo J', '2º Grupo H', '3 Jul 2026'),
-            m(87, '16avos', '1º Grupo K', '3º D/E/I/J/L', '3 Jul 2026'), m(88, '16avos', '2º Grupo D', '2º Grupo G', '3 Jul 2026'),
-            m(89, 'octavos', 'Ganador 74', 'Ganador 77', '4 Jul 2026'), m(90, 'octavos', 'Ganador 73', 'Ganador 75', '4 Jul 2026'),
-            m(91, 'octavos', 'Ganador 76', 'Ganador 78', '5 Jul 2026'), m(92, 'octavos', 'Ganador 79', 'Ganador 80', '5 Jul 2026'),
-            m(93, 'octavos', 'Ganador 83', 'Ganador 84', '6 Jul 2026'), m(94, 'octavos', 'Ganador 81', 'Ganador 82', '6 Jul 2026'),
-            m(95, 'octavos', 'Ganador 86', 'Ganador 88', '7 Jul 2026'), m(96, 'octavos', 'Ganador 85', 'Ganador 87', '7 Jul 2026'),
-            m(97, 'cuartos', 'Ganador 89', 'Ganador 90', '9 Jul 2026'), m(98, 'cuartos', 'Ganador 93', 'Ganador 94', '10 Jul 2026'),
-            m(99, 'cuartos', 'Ganador 91', 'Ganador 92', '11 Jul 2026'), m(100, 'cuartos', 'Ganador 95', 'Ganador 96', '11 Jul 2026'),
-            m(101, 'semis', 'Ganador 97', 'Ganador 98', '14 Jul 2026'), m(102, 'semis', 'Ganador 99', 'Ganador 100', '15 Jul 2026'),
-            m(103, '3er_puesto', 'Perdedor 101', 'Perdedor 102', '18 Jul 2026'), m(104, 'final', 'Ganador 101', 'Ganador 102', '19 Jul 2026')
-        ];
 
+            // 16AVOS DE FINAL
+            m(73, '16avos', '2º Grupo A', '2º Grupo B', '28 Jun 2026 - 16:00'), m(74, '16avos', '1º Grupo E', '3º A/B/C/D/F', '29 Jun 2026 - 17:30'),
+            m(75, '16avos', '1º Grupo F', '2º Grupo C', '29 Jun 2026 - 22:00'), m(76, '16avos', '1º Grupo C', '2º Grupo F', '29 Jun 2026 - 14:00'),
+            m(77, '16avos', '1º Grupo I', '3º C/D/F/G/H', '30 Jun 2026 - 18:00'), m(78, '16avos', '2º Grupo E', '2º Grupo I', '30 Jun 2026 - 14:00'),
+            m(79, '16avos', '1º Grupo A', '3º C/E/F/H/I', '30 Jun 2026 - 22:00'), m(80, '16avos', '1º Grupo L', '3º E/H/I/J/K', '1 Jul 2026 - 13:00'),
+            m(81, '16avos', '1º Grupo D', '3º B/E/F/I/J', '1 Jul 2026 - 21:00'), m(82, '16avos', '1º Grupo G', '3º A/E/H/I/J', '1 Jul 2026 - 17:00'),
+            m(83, '16avos', '2º Grupo K', '2º Grupo L', '2 Jul 2026 - 20:00'), m(84, '16avos', '1º Grupo H', '2º Grupo J', '2 Jul 2026 - 16:00'),
+            m(85, '16avos', '1º Grupo B', '3º E/F/G/I/J', '3 Jul 2026 - 00:00'), m(86, '16avos', '1º Grupo J', '2º Grupo H', '3 Jul 2026 - 19:00'),
+            m(87, '16avos', '1º Grupo K', '3º D/E/I/J/L', '2 Jul 2026 - 22:30'), m(88, '16avos', '2º Grupo D', '2º Grupo G', '3 Jul 2026 - 16:00'),
+
+            // OCTAVOS DE FINAL
+            m(89, 'octavos', 'Ganador 74', 'Ganador 77', '4 Jul 2026 - 18:00'), m(90, 'octavos', 'Ganador 73', 'Ganador 75', '4 Jul 2026 - 14:00'),
+            m(91, 'octavos', 'Ganador 76', 'Ganador 78', '5 Jul 2026 - 17:00'), m(92, 'octavos', 'Ganador 79', 'Ganador 80', '5 Jul 2026 - 21:00'),
+            m(93, 'octavos', 'Ganador 83', 'Ganador 84', '6 Jul 2026 - 16:00'), m(94, 'octavos', 'Ganador 81', 'Ganador 82', '6 Jul 2026 - 21:00'),
+            m(95, 'octavos', 'Ganador 86', 'Ganador 88', '7 Jul 2026 - 13:00'), m(96, 'octavos', 'Ganador 85', 'Ganador 87', '7 Jul 2026 - 16:00'),
+
+            // CUARTOS DE FINAL
+            m(97, 'cuartos', 'Ganador 89', 'Ganador 90', '9 Jul 2026 - 17:00'), m(98, 'cuartos', 'Ganador 93', 'Ganador 94', '10 Jul 2026 - 16:00'),
+            m(99, 'cuartos', 'Ganador 91', 'Ganador 92', '11 Jul 2026 - 18:00'), m(100, 'cuartos', 'Ganador 95', 'Ganador 96', '11 Jul 2026 - 22:00'),
+
+            // SEMIFINALES
+            m(101, 'semis', 'Ganador 97', 'Ganador 98', '14 Jul 2026 - 16:00'), m(102, 'semis', 'Ganador 99', 'Ganador 100', '15 Jul 2026 - 20:00'),
+
+            // FINAL Y 3ER PUESTO
+            m(103, '3er_puesto', 'Perdedor 101', 'Perdedor 102', '18 Jul 2026 - 18:00'), m(104, 'final', 'Ganador 101', 'Ganador 102', '19 Jul 2026 - 16:00')
+        ];
         const stagesList = [
             { id: 'grupos', label: 'Grupos' }, { id: '16avos', label: '16avos' }, { id: 'octavos', label: 'Octavos' },
             { id: 'cuartos', label: 'Cuartos' }, { id: 'semis', label: 'Semis' }, { id: '3er_puesto', label: '3er Puesto' },
