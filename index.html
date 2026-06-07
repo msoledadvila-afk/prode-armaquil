@@ -325,7 +325,7 @@
 
             const saveOfficialResults = () => {
                 if (user && isAdmin) {
-                    db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('state').doc('global').set({ matches: matches }, { merge: true }).then(() => {
+                    db.collection('artifacts').doc(MASTER_RESULTS_ID).collection('public').doc('data').collection('state').doc('global').set({ matches: matches }, { merge: true }).then(() => {
                         showToast('👑 ¡Resultados oficiales guardados! Todos los puntajes han sido recalculados.');
                     }).catch(err => console.error(err));
                 }
