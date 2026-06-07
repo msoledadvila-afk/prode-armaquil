@@ -306,7 +306,7 @@
                 if (userName.trim().length > 2 && userEmail.trim().length > 5 && userEmail.includes('@')) {
                     setIsLogged(true);
                     if (user) {
-                        db.collection('artifacts').doc(MASTER_RESULTS_ID).collection('public').doc('data').collection('predictions').doc(userDocId).set({ userName, email: userDocId }, { merge: true }).catch(err => console.error(err));
+                        db.collection('artifacts').doc(PRODE_APP_ID).collection('public').doc('data').collection('predictions').doc(userDocId).set({ userName, email: userDocId }, { merge: true }).catch(err => console.error(err));
                     }
                 } else {
                     showToast('⚠️ Ingresá un nombre y un correo válido.');
