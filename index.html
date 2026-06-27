@@ -272,6 +272,18 @@
                     },
                     error => console.error("Error recuperando resultados oficiales:", error)
                 );
+                
+                return () => { unsubPreds(); unsubGlobal(); };
+            }, [user]);
+
+            useEffect(() => {
+                if (isLogged && userDocId && allPredictions.length > 0 && !hasLoadedPreds.current) {
+                    const myData = allPredictions.find(p => p.id === userDocId);
+                    if (myData && myData.preds) setPredictions(myData.preds);
+                    if (myData && myData.userName) setUserName(myData.userName);
+                    hasLoadedPreds.current = true;
+                }
+            }, [isLogged, userDocId, allPredictions]);
 
             useEffect(() => {
                 const newBoard = allPredictions
