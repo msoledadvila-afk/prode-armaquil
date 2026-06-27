@@ -254,23 +254,24 @@
                 const unsubGlobal = globalRef.onSnapshot(
                     doc => {
                         if (doc.exists && doc.data().matches) {
-                            setMatches(doc.data().matches);
+                            // Los EQUIPOS, cruces y fechas SIEMPRE salen del código (initialMatches).
+                            // De Firebase solo tomamos los resultados oficiales (goles y estado).
+                            const guardados = {};
+                            doc.data().matches.forEach(sm => { guardados[sm.id] = sm; });
+                            setMatches(initialMatches.map(base => {
+                                const g = guardados[base.id];
+                                if (!g) return base;
+                                return {
+                                    ...base,
+                                    realHomeScore: (g.realHomeScore !== undefined ? g.realHomeScore : null),
+                                    realAwayScore: (g.realAwayScore !== undefined ? g.realAwayScore : null),
+                                    status: g.status || 'pending'
+                                };
+                            }));
                         }
                     },
                     error => console.error("Error recuperando resultados oficiales:", error)
                 );
-
-                return () => { unsubPreds(); unsubGlobal(); };
-            }, [user]);
-
-            useEffect(() => {
-                if (isLogged && userDocId && allPredictions.length > 0 && !hasLoadedPreds.current) {
-                    const myData = allPredictions.find(p => p.id === userDocId);
-                    if (myData && myData.preds) setPredictions(myData.preds);
-                    if (myData && myData.userName) setUserName(myData.userName);
-                    hasLoadedPreds.current = true;
-                }
-            }, [isLogged, userDocId, allPredictions]);
 
             useEffect(() => {
                 const newBoard = allPredictions
